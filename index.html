@@ -169,7 +169,7 @@
       width: 100%;
       max-width: 210mm;
       min-height: 297mm;
-      margin: 0 auto 20px auto;
+      margin: 0 auto 20mm auto;
       padding: 20mm 15mm;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       border-radius: 4px;
@@ -557,7 +557,7 @@
     // ============================================================
     // CONFIGURACIÓN - URL DEL WEB APP DE GOOGLE APPS SCRIPT
     // ============================================================
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwylk1LE5e8N4eEGOHW7VAYh_R_rWmM80vhXtK2s-IVqPlyy0ns6f_WLrMtAgzc2deo/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwWfyJDylAhlrBYhVDlFrqC0YPUrO0lZsnRtC_pHDp9ecCwE2aDe7jhGtviiuJ0xzvC2w/exec";
     
     // Timeout en milisegundos para la petición fetch
     const FETCH_TIMEOUT = 15000;
@@ -959,7 +959,11 @@
     function deleteRow(index) {
       if (confirm(`¿Desea eliminar la fila ${index + 1} (${currentData[index].usuario})?`)) {
         currentData.splice(index, 1);
+        
+        // MEJORA: Actualizar contador superior y etiqueta del Anexo dinámicamente al eliminar
         document.getElementById('lblRecordsCount').innerText = `${currentData.length} Equipos`;
+        document.getElementById('lblAnexoFiltro').innerText = `Relación de equipos intervenidos (${currentData.length} registros) - Ordenado por Nombres y Apellidos (${sortAsc ? 'A-Z' : 'Z-A'})`;
+        
         renderTable();
       }
     }
@@ -978,7 +982,11 @@
         serie: '-'
       };
       currentData.unshift(newRecord);
+      
+      // MEJORA: Actualizar contador superior y etiqueta del Anexo también al agregar
       document.getElementById('lblRecordsCount').innerText = `${currentData.length} Equipos`;
+      document.getElementById('lblAnexoFiltro').innerText = `Relación de equipos intervenidos (${currentData.length} registros) - Ordenado por Nombres y Apellidos (${sortAsc ? 'A-Z' : 'Z-A'})`;
+      
       renderTable();
     }
 
